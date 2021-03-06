@@ -26,7 +26,6 @@ def PRGAEncrypt(S, plainText):
     i = 0
     j = 0
 
-    # key array 
     cipherText = []
 
     for c in plainText:
@@ -35,6 +34,7 @@ def PRGAEncrypt(S, plainText):
         
         S[i], S[j] = S[j], S[i]
 
+        # xor and convert from ASCII to hex 
         hexed = ("%02X" % ord(chr(S[(S[i] + S[j]) % 256] ^ ord(c))))
 
         cipherText.append(hexed)
@@ -46,7 +46,6 @@ def PRGADecrypt(S, cipherText):
     i = 0
     j = 0
 
-    # key array 
     plainText = ''
 
     for c in cipherText:
@@ -55,14 +54,14 @@ def PRGADecrypt(S, cipherText):
         
         S[i], S[j] = S[j], S[i]
         
+        # xor and convert from hex to plain ASCII
         char = chr(int(c,16) ^ S[(S[i] + S[j]) % 256])
 
         plainText += char
 
     return plainText
 
-
-#     return cipher
+# convert a list to string
 def listToString(list):  
     
     # initialize an empty string 
@@ -75,7 +74,7 @@ def listToString(list):
     # return string   
     return str
 
-
+# encryption
 def encrypt(key, plainText):
     S = KSA(key)
     cipherText = PRGAEncrypt(S, plainText)
@@ -83,6 +82,7 @@ def encrypt(key, plainText):
 
     return listToString(cipherText)
 
+# decryption
 def decrypt(key, cipherText):
     S = KSA(key)
     cipherList=cipherText.split(' ')
@@ -91,16 +91,20 @@ def decrypt(key, cipherText):
 
     return plainText
 
+# set key and plain text
 key = 'HOUSE'
 plainText = 'MISTAKES ARE AS SERIOUS AS THE RESULTS THEY CAUSE'
 print('PLAIN TEXT:' , plainText)
 print('KEY:' , key)
 
+# encrypt the plain text
 encrypted = encrypt(key, plainText)
 print('\nENCRYPTED:', encrypted)
 
-
-# cipherText = '15DDA667FE6ADD1A49167A12A40CF54B42D4CD7014E2EF5C0A87A3010B47EB7919777DDB578614557294AEAFD9621C8B19'
+# split the cipher text into chunks of two characters each first
+# and then join these chunks with spaces
 cipherText = " ".join(encrypted[i:i+2] for i in range(0, len(encrypted), 2))
+
+# decrypt the cipher text
 decrypted = decrypt(key, cipherText)
 print('\nDECREPTED:' , decrypted)
