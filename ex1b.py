@@ -10,10 +10,13 @@ def validateText(plainText, table):
     while(isValid == False):
         
         # TODO fix user input / when invalid input it is still saved
+        # TODO fix space
         for c in plainText.upper():
-            if (c in table) == False:
+            if(c == ' '):
+                continue
+            elif (c in table) == False:
                 print("Unsupported character '" + c + "'")
-                plainText = input("Plain Text: ")
+                plainText = input("PLAIN TEXT: ")
                 break
 
             isValid = True
@@ -27,10 +30,8 @@ def convertToBits(plainText, table):
     for c in plainText.upper():
         n = n + 1
 
+        bitStream = bitStream << 5
         bitStream = (bitStream | table[c])
-
-        if (n != len(plainText)):
-            bitStream = bitStream << 5
         
     return bitStream
 
@@ -77,20 +78,30 @@ table = {'A' :0b00000, 'B' :0b00001, 'C' :0b00010, 'D' :0b00011, 'E' :0b00100, '
        'Q' :0b10000, 'R' :0b10001, 'S' :0b10010, 'T' :0b10011, 'U' :0b10100, 'V' :0b10101, 'W' :0b10110, 'X' :0b10111,
        'Y' :0b11000, 'Z' :0b11001, '.' :0b11010, '!' :0b11011, '?' :0b11100, '(' :0b11101, ')' :0b11110, '-' :0b11111}
 
-plainText = input("Plain Text: ")
+plainText = input("PLAIN TEXT: ")
 
 if(validateText(plainText, table)):
+    # encryption
     bitStream = convertToBits(plainText, table)
-    print("bitstream", bin(bitStream))
+    # print("bitstream", bin(bitStream))
     
     otpKey = otpKey(plainText)
-    print("otp key  ", bin(otpKey))
+    # print("otp key  ", bin(otpKey))
 
-    xored = xor(bitStream, otpKey)
-    print("xored    ", bin(xored))
+    xored1 = xor(bitStream, otpKey)
+    # print("xored    ", bin(xored1))
 
-    cipherText = binaryToString(xored, len(plainText), table)
+    cipherText = binaryToString(xored1, len(plainText), table)
+    print("ENCRYPTED:   ", end='')
     printText(cipherText)
 
+    print()
+    # decryption
+    xored2 = xor(xored1, otpKey)
+    # print("xored    ", bin(xored2))
+
+    decrypted = binaryToString(xored2, len(plainText), table)
+    print("DECRYPTED:   ", end='')
+    printText(decrypted)
 
 
