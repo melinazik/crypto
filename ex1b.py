@@ -27,7 +27,7 @@ def convertToBits(plainText, table):
     for c in plainText.upper():
         n = n + 1
 
-        bitStream = (bitStream | map[c])
+        bitStream = (bitStream | table[c])
 
         if (n != len(plainText)):
             bitStream = bitStream << 5
@@ -41,32 +41,35 @@ def otpKey(plainText):
 
     otp = random.getrandbits(length)
     
-    return otp 
+    return otp
 
 
 def xor(text, key):
-    return bin(text ^ key)
+    return text ^ key
 
-# def binaryToStringList(binary):
-#     decimal = 0
-#     i = 1
-#     binaryStringList = []
+def binaryToString(binary, length, table):
+    mask = 0b11111
 
-#     while(binary != 0): 
-#         dec = binary % 10
-#         decimal += dec * pow(10 , i - 1) 
-#         binary = binary//10
+    charList = []
 
-#         stringData = chr(decimal)
+    for i in range(length):
+        # isolate last 5 bits of the bit stream
+        last = binary & mask
+        binary = binary >> 5
 
-#         if(i % 5 == 0):
-#             binaryStringList.append(stringData)    
-        
-#         i += 1
-        
-        
-#     print("binary to String" , binaryStringList )
-#     return binaryStringList    
+        # find the element on the table that matches the isolated bits
+        for element in table:
+            if (table[element] == last):
+                charList.append(element)
+    
+    # reverse the charList / characters are encoded from end to start
+    result = charList[::-1]
+    return result
+
+def printText(charList):
+    for c in charList:
+        print(c, end="")
+
 
 #set with table values for each ASCII character
 table = {'A' :0b00000, 'B' :0b00001, 'C' :0b00010, 'D' :0b00011, 'E' :0b00100, 'F' :0b00101, 'G' :0b00110, 'H' :0b00111,
@@ -84,7 +87,10 @@ if(validateText(plainText, table)):
     print("otp key  ", bin(otpKey))
 
     xored = xor(bitStream, otpKey)
-    print("xored    ", xored)
+    print("xored    ", bin(xored))
+
+    cipherText = binaryToString(xored, len(plainText), table)
+    printText(cipherText)
 
 
 
