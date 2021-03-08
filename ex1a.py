@@ -1,5 +1,6 @@
 ''' 
-    RC4 encryption algorithm
+    RC4 algorithm
+    Exercise 1 (i)
     author : Melina Zikou 
 '''
 

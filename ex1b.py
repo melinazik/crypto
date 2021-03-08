@@ -1,4 +1,8 @@
-import math 
+''' 
+    One Time Pad (OTP) algorithm
+    Exercise 1 (ii)
+    author : Melina Zikou 
+'''
 import random 
 
 # check for unsupported characters in the given text
@@ -24,6 +28,9 @@ def validateText(plainText, table):
     return isValid
 
 # convert plain text to bits according to the table
+# parameters: plainText -> text given 
+#             table  -> table given with characters - bin values
+# return      plain text converted to binary 
 def convertToBits(plainText, table):
     bitStream = 0b0
     n = 1
@@ -36,6 +43,8 @@ def convertToBits(plainText, table):
     return bitStream
 
 # generate random binary number of plain text bit length
+# parameters: plainText -> text given 
+# return      one time pad key
 def otpKey(plainText):
 
     length = len(plainText) * 5
@@ -44,10 +53,15 @@ def otpKey(plainText):
     
     return otp
 
-
+# xoring function
 def xor(text, key):
     return text ^ key
 
+# convert binary number to characters according to table values
+# parameters: binary -> binary number to convert
+#             length -> length of plainText
+#             table  -> table given with characters - bin values
+# return      list with characters
 def binaryToString(binary, length, table):
     mask = 0b11111
 
@@ -83,12 +97,15 @@ plainText = input("PLAIN TEXT: ")
 if(validateText(plainText, table)):
     # encryption
     bitStream = convertToBits(plainText, table)
+    # testing
     # print("bitstream", bin(bitStream))
     
     otpKey = otpKey(plainText)
+    # testing
     # print("otp key  ", bin(otpKey))
 
     xored1 = xor(bitStream, otpKey)
+    # testing
     # print("xored    ", bin(xored1))
 
     cipherText = binaryToString(xored1, len(plainText), table)
@@ -98,6 +115,7 @@ if(validateText(plainText, table)):
     print()
     # decryption
     xored2 = xor(xored1, otpKey)
+    # testing
     # print("xored    ", bin(xored2))
 
     decrypted = binaryToString(xored2, len(plainText), table)
