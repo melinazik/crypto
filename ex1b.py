@@ -4,24 +4,25 @@
     author : Melina Zikou 
 '''
 import random 
+import os
 
 # check for unsupported characters in the given text
 # return True if text is OK
 #        False otherwise
 def validateText(plainText, table):
+
     isValid = False
 
     while(isValid == False):
         
         # TODO fix user input / when invalid input it is still saved
-        # TODO fix space
-        for c in plainText.upper():
-            if(c == ' '):
-                continue
-            elif (c in table) == False:
-                print("Unsupported character '" + c + "'")
-                plainText = input("PLAIN TEXT: ")
-                break
+        while(isValid == False):
+            for c in plainText.upper():
+                if (c in table) == False:
+                    print("Unsupported character '" + c + "'")
+
+                    plainText = input("PLAIN TEXT: ")
+                    break
 
             isValid = True
 
@@ -93,6 +94,8 @@ table = {'A' :0b00000, 'B' :0b00001, 'C' :0b00010, 'D' :0b00011, 'E' :0b00100, '
        'Y' :0b11000, 'Z' :0b11001, '.' :0b11010, '!' :0b11011, '?' :0b11100, '(' :0b11101, ')' :0b11110, '-' :0b11111}
 
 plainText = input("PLAIN TEXT: ")
+plainText = "".join(plainText.split()) 
+
 
 if(validateText(plainText, table)):
     # encryption
