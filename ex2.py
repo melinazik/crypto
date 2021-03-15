@@ -1,5 +1,6 @@
 from Crypto.Cipher import Blowfish
 from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
 from Crypto import Random
 import random
 
@@ -25,8 +26,8 @@ def differentBits(x, y):
     y = (bin(int.from_bytes(y, byteorder="big"))[2:])
 
     # add zeros until length = 64
-    x = list((64 - len(x)) * str(0) + x)
-    y = list((64 - len(y)) * str(0) + y)
+    x = list((64*8 - len(x)) * str(0) + x)
+    y = list((64*8 - len(y)) * str(0) + y)
 
     # s = ''.join(str(e) for e in x)
     # print("x:", s)
@@ -101,8 +102,10 @@ countAESCBC = 0
 countBlowfishECB = 0
 countBlowfishCBC = 0
 
+messages = 100
+
 # number of messages ( > 30 )
-for j in range(36):
+for j in range(messages):
     x = []
     for i in range(0, 64*8):
         # random message x
@@ -111,30 +114,30 @@ for j in range(36):
     y = x.copy()
 
     # change 1 random bit in message y
-    randIndex = random.randint(0, 63)
+    randIndex = random.randint(0, 64*8 - 1)
     changeBit(y, randIndex)
 
     xBytes = bitsToBytes(x)
     yBytes = bitsToBytes(y)
     
-    key = b"This is the key!"
+    key = get_random_bytes(16)
 
-    print(len(xBytes))
 
     a, b = aes(key, xBytes, yBytes)
-    countAESECB += a
-    countAESCBC += b
+    countAESECB += a / 64 * 8
+    countAESCBC += b / 64 * 8 
 
 
     a, b = blowfish(key, xBytes, yBytes)
-    countBlowfishECB += a
-    countBlowfishCBC += b
+    countBlowfishECB += a / 64 * 8 
+    countBlowfishCBC += b / 64 * 8
 
 
     
-
-print("AES - ECB MODE:", countAESECB / 35)
-print("AES - CBC MODE:", countAESCBC / 35)
-
-print("Blowfish - ECB MODE:", countBlowfishECB / 35)
-print("Blowfish - CBC MODE:", countBlowfishCBC / 35)
+print("AVERAGE DIFFERENCE IN BITS")
+print("--------------------------")
+print("AES - ECB MODE:", countAESECB / messages)
+print("AES - CBC MODE:", countAESCBC / messages)
+print("--------------------------")
+print("Blowfish - ECB MODE:", countBlowfishECB / messages)
+print("Blowfish - CBC MODE:", countBlowfishCBC / messages)
