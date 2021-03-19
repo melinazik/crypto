@@ -9,7 +9,6 @@
 
 import numpy as np
 
-
 # Find coincidences of letters in the cipher text.
 # The index of the max coincidence is the size of the key.
 # param     text -> cipher text
@@ -56,7 +55,7 @@ def getKey(text, keyLen, frequency):
                 textFrequency[chr(k + ord('A'))] = 0
 
             # find the frequencies of each position of the key.
-            # start at the letter position of the key to vbe found
+            # start at the letter position of the key to be found
             # and loop through the cipher text
             k = i
             while(k < textLen):

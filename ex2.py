@@ -124,13 +124,13 @@ for j in range(messages):
 
 
     a, b = aes(key, xBytes, yBytes)
-    countAESECB += a / 64 * 2
-    countAESCBC += b / 64 * 2
+    countAESECB += a 
+    countAESCBC += b 
 
 
     a, b = blowfish(key, xBytes, yBytes)
-    countBlowfishECB += a / 64 * 2
-    countBlowfishCBC += b / 64 * 2
+    countBlowfishECB += a 
+    countBlowfishCBC += b 
 
 
 print("AVERAGE DIFFERENCE IN BITS")
