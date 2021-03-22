@@ -110,12 +110,14 @@ table = {'A' :0b00000, 'B' :0b00001, 'C' :0b00010, 'D' :0b00011, 'E' :0b00100, '
        'Q' :0b10000, 'R' :0b10001, 'S' :0b10010, 'T' :0b10011, 'U' :0b10100, 'V' :0b10101, 'W' :0b10110, 'X' :0b10111,
        'Y' :0b11000, 'Z' :0b11001, '.' :0b11010, '!' :0b11011, '?' :0b11100, '(' :0b11101, ')' :0b11110, '-' :0b11111}
 
-plainText = '.R'
+plainText = 'AB'
 length = len(plainText)*5
-# plain = convertToBits('AB', table)
-# cipher =  convertToBits('.S', table)
+plain = convertToBits('AB', table)
+cipher =  convertToBits('.S', table)
 
-# seed = xor(plain, cipher)
+seed = xor(plain, cipher)
+seed = bitsToList(seed)
+seed = seed[::-1]
 
 # cipherText = 'i!))aiszwykqnfcyc!?secnncvch'.upper()
 
@@ -124,12 +126,19 @@ length = len(plainText)*5
 # plainText = binaryToString(plainTextBits, len(cipherText), table)
 
 # seed = bitsToList(seed)
+
+# 'i!))aiszwykqnfcyc!?secnncvch'
+
 feedback = [0,0,0,0,0,1,1,0,1,1]
-seed = [0,0,0,0,1,0,1,0,1,1]
+
+plainText = 'i!))aiszwykqnfcyc!?secnncvch'.upper()
+length = len(plainText)*5
+
 output = lfsr(seed, feedback, length)
 
+
 output = listToBits(output)
-print(bin(output))
+# print(bin(output))
 cipherText = binaryToString(xor(convertToBits(plainText, table), output), length//5, table)
 
 printText(cipherText)
