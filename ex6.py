@@ -21,12 +21,12 @@ def convertToBits(plainText, table):
 #             length -> length of plainText
 #             table  -> table given with characters - bin values
 # return      list with characters
-def binaryToString(binary, table):
+def binaryToString(binary, length, table):
     mask = 0b11111
 
     charList = []
 
-    for i in range(binary):
+    for i in range(length):
         # isolate last 5 bits of the bit stream
         last = binary & mask
         binary = binary >> 5
@@ -51,6 +51,7 @@ def sumxor(list):
     return r
 
 def lfsr(seed, feedback, bits):
+    
     newFeedback = []
 
     for i in range(len(feedback)):
@@ -65,7 +66,7 @@ def lfsr(seed, feedback, bits):
         xor = sumxor([seed[j] for j in newFeedback])
         output.append(seed.pop()) #extract to output the right-most bit of current seed
         seed.appendleft(xor)      #insert from left the result of the previous xor 
-        
+
     return output
 
 def listToBits(l):
@@ -76,7 +77,8 @@ def listToBits(l):
         n = l[i]
         binary = binary ^ n
         binary = binary << 1
-
+    
+    binary = binary >> 1
     return binary
 
 def bitsToList(bits):
@@ -84,7 +86,7 @@ def bitsToList(bits):
 
     bitList = []
 
-    for i in range(bits):
+    for i in range(bits.bit_length()):
         last = bits & mask
         bits = bits >> 1
 
@@ -108,11 +110,12 @@ table = {'A' :0b00000, 'B' :0b00001, 'C' :0b00010, 'D' :0b00011, 'E' :0b00100, '
        'Q' :0b10000, 'R' :0b10001, 'S' :0b10010, 'T' :0b10011, 'U' :0b10100, 'V' :0b10101, 'W' :0b10110, 'X' :0b10111,
        'Y' :0b11000, 'Z' :0b11001, '.' :0b11010, '!' :0b11011, '?' :0b11100, '(' :0b11101, ')' :0b11110, '-' :0b11111}
 
-plain = convertToBits('AB', table)
-cipher =  convertToBits('.S', table)
+plainText = '.R'
+length = len(plainText)*5
+# plain = convertToBits('AB', table)
+# cipher =  convertToBits('.S', table)
 
-seed = xor(plain, cipher)
-print(bin(seed))
+# seed = xor(plain, cipher)
 
 # cipherText = 'i!))aiszwykqnfcyc!?secnncvch'.upper()
 
@@ -120,14 +123,15 @@ print(bin(seed))
 
 # plainText = binaryToString(plainTextBits, len(cipherText), table)
 
-seed = bitsToList(seed)
+# seed = bitsToList(seed)
 feedback = [0,0,0,0,0,1,1,0,1,1]
+seed = [0,0,0,0,1,0,1,0,1,1]
+output = lfsr(seed, feedback, length)
 
-output = lfsr(seed, feedback, plain)
 output = listToBits(output)
+print(bin(output))
+cipherText = binaryToString(xor(convertToBits(plainText, table), output), length//5, table)
 
-cipherText = binaryToString(xor(plain, output), table)
-
-print(cipherText)
+printText(cipherText)
 
 # printText(plainText)
