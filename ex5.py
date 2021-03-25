@@ -2,18 +2,18 @@ import zipfile
 from tqdm import tqdm
 
 # password list
-wordList = "english.txt"
+dictionary = "english.txt"
 # zip file to crack its password
 zipFile = "locked.zip"
 
 # initialize Zip File object
 zipFile = zipfile.ZipFile(zipFile)
 # count the number of passphrases
-words = len(list(open(wordList, "rb")))
+words = len(list(open(dictionary, "rb")))
 
 
-with open(wordList, "rb") as wordList:
-    for word in tqdm(wordList, total=words, unit="word"):
+with open(dictionary, "rb") as dictionary:
+    for word in tqdm(dictionary, total=words, unit="word"):
         try:
             # extractall => exception whenever pwd incorrect
             #            => if correct - print pwd
@@ -25,4 +25,4 @@ with open(wordList, "rb") as wordList:
         else:
             print("\nPassword:", word.decode().strip())
             exit(0)
-print("Password not found!")
+print("Password not found.")
