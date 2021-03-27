@@ -1,3 +1,11 @@
+''' 
+    Avalanche Effect on Block Ciphers
+    AES and Blowfish algorithms
+    Exercise 2
+    
+    Melina Zikou (2021)
+'''
+
 from Crypto.Cipher import Blowfish
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
@@ -35,25 +43,28 @@ def differentBits(x, y):
 
     count = 0
     
+    # count different bits
     for i in range(0, 64):
         if (x[i] != y[i]):
             count += 1
 
     return count
 
-
+# flip a bit of a message
 def changeBit(y, i):
     if (y[i] == 1):
         y[i] = 0
     else:
         y[i] = 1
 
+# ECB Mode of Operation
 def ECBMode(key, cipher, xBytes, yBytes):
     xEnc = cipher.encrypt(xBytes)
     yEnc = cipher.encrypt(yBytes)
 
     return differentBits(xEnc, yEnc)
 
+# CBC Mode of Operation
 def CBCMode (key, blockSize, cipher, iv, xBytes, yBytes):
     xEnc = iv + cipher.encrypt(xBytes)
     yEnc = iv + cipher.encrypt(yBytes)
@@ -113,7 +124,7 @@ for j in range(messages):
 
     y = x.copy()
 
-    # change 1 random bit in message y
+    # choose random bit to change
     randIndex = random.randint(0, 64*2 - 1)
     changeBit(y, randIndex)
 

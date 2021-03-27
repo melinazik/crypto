@@ -1,8 +1,10 @@
 ''' 
     One Time Pad (OTP) algorithm
     Exercise 1 (ii)
-    author : Melina Zikou 
+    
+    Melina Zikou (2021)
 '''
+
 import random 
 import os
 

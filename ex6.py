@@ -1,3 +1,13 @@
+''' 
+    LFSR 
+    Exercise 6
+    
+    Melina Zikou (2021)
+
+    Code adapted from K. Draziotis (2016):
+    https://github.com/drazioti/python_scripts/tree/master/numtheory
+'''
+
 from collections import deque  
 
 # convert plain text to bits according to the table
@@ -69,6 +79,7 @@ def lfsr(seed, feedback, bits):
 
     return output
 
+# convert a list of bits to binary number
 def listToBits(l):
     
     binary = 0b0
@@ -81,6 +92,7 @@ def listToBits(l):
     binary = binary >> 1
     return binary
 
+# convert a binary number to a list of bits
 def bitsToList(bits):
     mask = 0b1
 
@@ -95,10 +107,11 @@ def bitsToList(bits):
     result = bitList[::-1]
     return result
 
-
+# xor 2 binary numbers
 def xor(text, key):
     return text ^ key
 
+# print char objects of a list as a string
 def printText(charList):
     for c in charList:
         print(c, end="")
@@ -119,16 +132,6 @@ seed = xor(plain, cipher)
 seed = bitsToList(seed)
 seed = seed[::-1]
 
-# cipherText = 'i!))aiszwykqnfcyc!?secnncvch'.upper()
-
-# plainTextBits = (xor(convertToBits(cipherText, table), keyStream))
-
-# plainText = binaryToString(plainTextBits, len(cipherText), table)
-
-# seed = bitsToList(seed)
-
-# 'i!))aiszwykqnfcyc!?secnncvch'
-
 feedback = [0,0,0,0,0,1,1,0,1,1]
 
 plainText = 'i!))aiszwykqnfcyc!?secnncvch'.upper()
@@ -136,11 +139,8 @@ length = len(plainText)*5
 
 output = lfsr(seed, feedback, length)
 
-
 output = listToBits(output)
-# print(bin(output))
-cipherText = binaryToString(xor(convertToBits(plainText, table), output), length//5, table)
+xored = xor(convertToBits(plainText, table), output)
+cipherText = binaryToString(xored, length//5, table)
 
 printText(cipherText)
-
-# printText(plainText)

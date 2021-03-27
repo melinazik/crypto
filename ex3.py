@@ -1,9 +1,10 @@
 ''' 
-    Vigenere deciphering algorithm
-    Implementation of Kasiski Examination and Frequency Analysis
+    Vigenere cracking algorithm
     Exercise 3
-    author : Melina Zikou 
+    
+    Melina Zikou (2021) 
 '''
+
 # Kasiski: https://en.wikipedia.org/wiki/Kasiski_examination
 # Frequency Analysis : https://en.wikipedia.org/wiki/Frequency_analysis
 

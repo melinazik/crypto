@@ -1,7 +1,8 @@
 ''' 
     RC4 algorithm
     Exercise 1 (i)
-    author : Melina Zikou 
+    
+    Melina Zikou (2021)
 '''
 
 import numpy as np

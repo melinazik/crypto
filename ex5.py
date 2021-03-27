@@ -1,3 +1,13 @@
+''' 
+    Dictionary attack on Zip file
+    Exercise 5
+    
+    Melina Zikou (2021)
+
+    Code adapted from Abdou Rockikz (2020):
+    https://github.com/x4nth055/pythoncode-tutorials/tree/master/ethical-hacking
+'''
+
 import zipfile
 from tqdm import tqdm
 
