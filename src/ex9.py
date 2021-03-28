@@ -1,5 +1,5 @@
 ''' 
-    Modular Exponentiation
+    Fast Modular Exponentiation
     Exercise 9 (iv)
     
     Melina Zikou (2021)
@@ -25,6 +25,12 @@
 #     return result
 
 
+
+# b = base number
+# e = exponential
+# m = modulo 
+#     
+# calculate b^e mod m
 def fast(b,e,m):
     x = b
     g = e
