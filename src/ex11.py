@@ -5,30 +5,6 @@
     Melina Zikou (2021)
 '''
 
-import math
-
-
-# Find prime factors of a number
-def primeFactors(number):
-    factors = []
-
-    # get the number of 2's that divide the number
-    while number % 2 == 0:
-        factors.append(2)
-        number = number / 2
-
-    # number is odd at this point
-    # skip 2 for each increment
-    for i in range(3, int(math.sqrt(number)) + 1, 2):
-        while number % i == 0:
-            factors.append(int(i))
-            number = number / i
-
-    if number > 2:
-        factors.append(int(number))
-
-    return factors
-
 # Find gcd (greatest common divisor) of two numbers
 def gcd(a, b):
   
@@ -95,4 +71,5 @@ for c in C:
 for m in M:
     asciiM.append(chr(m))
 
+print("Private Key:", privateKey)
 printText(asciiM)
