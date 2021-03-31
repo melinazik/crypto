@@ -52,8 +52,47 @@ def modularInverse(a, m):
             return x
     return -1
 
-print(primeFactors(11413))
-print(phi(11413))
-print(modularInverse(809,1001))
+# b = base number
+# e = exponential
+# m = modulo 
+#     
+# calculate b^e mod m
+def fast(b,e,m):
+    x = b
+    g = e
+    d = 1
 
+    while g > 0:
+        if g % 2 == 0:
+            x = (x * x) % m
+            g = g/2
+        else:
+            d = (x * d) % m
+            g = g - 1
+    return d
 
+# print char objects of a list as a string
+def printText(text):
+    for i in range(len(text)):
+        print(text[i], end="")
+
+C = [3203,909,3143,5255,5343,3203,909,9958,5278,5343,9958,5278,4674,909,9958,792,909,4132,3143,9958,3203,5343,792,3143,4443]
+
+N = 11413
+e = 19 
+
+phi = phi(N)
+d = modularInverse(e,phi)
+
+privateKey = [N, d]
+
+M = []
+asciiM = []
+
+for c in C:
+    M.append(fast(c,d,N))
+
+for m in M:
+    asciiM.append(chr(m))
+
+printText(asciiM)
