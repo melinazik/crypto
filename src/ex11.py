@@ -1,6 +1,5 @@
 ''' 
     Textbook RSA
-    FInd Private Key
     Exercise 11
     
     Melina Zikou (2021)
@@ -30,6 +29,31 @@ def primeFactors(number):
 
     return factors
 
+# Find gcd (greatest common divisor) of two numbers
+def gcd(a, b):
+  
+    if (a == 0):
+        return b
+    return gcd(b % a, a)
+
+# Find Euler's Totient Function (φ)
+def phi(n):
+    result = 1
+    for i in range(2, n):
+        if (gcd(i, n) == 1):
+            result += 1
+    return result
+
+# Find modular inverse of a mod m
+def modularInverse(a, m):
+     
+    for x in range(1, m):
+        if (((a % m) * (x % m)) % m == 1):
+            return x
+    return -1
 
 print(primeFactors(11413))
+print(phi(11413))
+print(modularInverse(809,1001))
+
 
