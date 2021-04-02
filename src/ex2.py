@@ -43,29 +43,26 @@ def differentBits(x, y):
 
     count = 0
     
-    # count different bits
-    for i in range(0, 64):
+    for i in range(0, 64*2):
         if (x[i] != y[i]):
             count += 1
 
     return count
 
-# flip a bit of a message
+
 def changeBit(y, i):
     if (y[i] == 1):
         y[i] = 0
     else:
         y[i] = 1
 
-# ECB Mode of Operation
 def ECBMode(key, cipher, xBytes, yBytes):
     xEnc = cipher.encrypt(xBytes)
     yEnc = cipher.encrypt(yBytes)
 
     return differentBits(xEnc, yEnc)
 
-# CBC Mode of Operation
-def CBCMode (key, blockSize, cipher, iv, xBytes, yBytes):
+def CBCMode (key, cipher, iv, xBytes, yBytes):
     xEnc = iv + cipher.encrypt(xBytes)
     yEnc = iv + cipher.encrypt(yBytes)
 
@@ -85,7 +82,7 @@ def aes(key, xBytes, yBytes):
     cipher = AES.new(key, Blowfish.MODE_CBC, iv)
 
     # different bits
-    countCBC = CBCMode(key, blockSize, cipher, iv, xBytes, yBytes)
+    countCBC = CBCMode(key, cipher, iv, xBytes, yBytes)
 
     return countECB, countCBC
 
@@ -103,7 +100,8 @@ def blowfish(key, xBytes, yBytes):
     cipher = Blowfish.new(key, Blowfish.MODE_CBC, iv)
     
     # different bits
-    countCBC = CBCMode(key, blockSize, cipher, iv, xBytes, yBytes)
+    countCBC = CBCMode(key, cipher, iv, xBytes, yBytes)
+
 
     return countECB, countCBC
 
@@ -113,7 +111,7 @@ countAESCBC = 0
 countBlowfishECB = 0
 countBlowfishCBC = 0
 
-messages = 32
+messages = 35
 
 # number of messages ( > 30 )
 for j in range(messages):
@@ -124,7 +122,7 @@ for j in range(messages):
 
     y = x.copy()
 
-    # choose random bit to change
+    # change 1 random bit in message y
     randIndex = random.randint(0, 64*2 - 1)
     changeBit(y, randIndex)
 
@@ -136,12 +134,14 @@ for j in range(messages):
 
     a, b = aes(key, xBytes, yBytes)
     countAESECB += a 
-    countAESCBC += b 
+    countAESCBC += b
 
 
     a, b = blowfish(key, xBytes, yBytes)
     countBlowfishECB += a 
     countBlowfishCBC += b 
+
+
 
 
 print("AVERAGE DIFFERENCE IN BITS")
@@ -151,3 +151,21 @@ print("AES - CBC MODE:", countAESCBC / messages)
 print("--------------------------")
 print("Blowfish - ECB MODE:", countBlowfishECB / messages)
 print("Blowfish - CBC MODE:", countBlowfishCBC / messages)
+
+#     a, b = aes(key, xBytes, yBytes)
+#     countAESECB += a / (64 * 2)
+#     countAESCBC += b / (64 * 2)
+
+
+#     a, b = blowfish(key, xBytes, yBytes)
+#     countBlowfishECB += a / (64 * 2)
+#     countBlowfishCBC += b / 64 * 2)
+
+
+# print("AVERAGE DIFFERENCE IN BITS")
+# print("--------------------------")
+# print("AES - ECB MODE:", countAESECB / messages)
+# print("AES - CBC MODE:", countAESCBC / messages)
+# print("--------------------------")
+# print("Blowfish - ECB MODE:", countBlowfishECB / messages)
+# print("Blowfish - CBC MODE:", countBlowfishCBC / messages)
