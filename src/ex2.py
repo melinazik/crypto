@@ -63,8 +63,8 @@ def ECBMode(key, cipher, xBytes, yBytes):
     return differentBits(xEnc, yEnc)
 
 def CBCMode (key, cipher, iv, xBytes, yBytes):
-    xEnc = iv + cipher.encrypt(xBytes)
-    yEnc = iv + cipher.encrypt(yBytes)
+    xEnc = cipher.encrypt(iv + xBytes)
+    yEnc = cipher.encrypt(iv + yBytes)
 
     return differentBits(xEnc, yEnc)
 
@@ -78,7 +78,7 @@ def aes(key, xBytes, yBytes):
 
     # CBC MODE
     blockSize = AES.block_size
-    iv = Random.new().read(blockSize)
+    iv = get_random_bytes(blockSize)
     cipher = AES.new(key, Blowfish.MODE_CBC, iv)
 
     # different bits
@@ -96,7 +96,7 @@ def blowfish(key, xBytes, yBytes):
 
     # CBC MODE
     blockSize = Blowfish.block_size
-    iv = Random.new().read(blockSize)
+    iv = get_random_bytes(blockSize)
     cipher = Blowfish.new(key, Blowfish.MODE_CBC, iv)
     
     # different bits
@@ -151,21 +151,3 @@ print("AES - CBC MODE:", countAESCBC / messages)
 print("--------------------------")
 print("Blowfish - ECB MODE:", countBlowfishECB / messages)
 print("Blowfish - CBC MODE:", countBlowfishCBC / messages)
-
-#     a, b = aes(key, xBytes, yBytes)
-#     countAESECB += a / (64 * 2)
-#     countAESCBC += b / (64 * 2)
-
-
-#     a, b = blowfish(key, xBytes, yBytes)
-#     countBlowfishECB += a / (64 * 2)
-#     countBlowfishCBC += b / 64 * 2)
-
-
-# print("AVERAGE DIFFERENCE IN BITS")
-# print("--------------------------")
-# print("AES - ECB MODE:", countAESECB / messages)
-# print("AES - CBC MODE:", countAESCBC / messages)
-# print("--------------------------")
-# print("Blowfish - ECB MODE:", countBlowfishECB / messages)
-# print("Blowfish - CBC MODE:", countBlowfishCBC / messages)
