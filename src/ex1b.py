@@ -12,7 +12,6 @@ import os
 # return True if text is OK
 #        False otherwise
 def validateText(plainText, table):
-
     isValid = False
 
     while(isValid == False):
@@ -49,7 +48,6 @@ def convertToBits(plainText, table):
 # parameters: plainText -> text given 
 # return      one time pad key
 def otpKey(plainText):
-
     length = len(plainText) * 5
 
     otp = random.getrandbits(length)
@@ -88,7 +86,6 @@ def printText(charList):
     for c in charList:
         print(c, end="")
 
-
 #set with table values for each ASCII character
 table = {'A' :0b00000, 'B' :0b00001, 'C' :0b00010, 'D' :0b00011, 'E' :0b00100, 'F' :0b00101, 'G' :0b00110, 'H' :0b00111,
        'I' :0b01000, 'J' :0b01001, 'K' :0b01010, 'L' :0b01011, 'M' :0b01100, 'N' :0b01101, 'O' :0b01110, 'P' :0b01111,
@@ -97,7 +94,6 @@ table = {'A' :0b00000, 'B' :0b00001, 'C' :0b00010, 'D' :0b00011, 'E' :0b00100, '
 
 plainText = input("PLAIN TEXT: ")
 plainText = "".join(plainText.split()) 
-
 
 if(validateText(plainText, table)):
     # encryption
@@ -126,5 +122,3 @@ if(validateText(plainText, table)):
     decrypted = binaryToString(xored2, len(plainText), table)
     print("DECRYPTED:   ", end='')
     printText(decrypted)
-
-

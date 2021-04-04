@@ -21,14 +21,13 @@ zipFile = zipfile.ZipFile(zipFile)
 # count the number of passphrases
 words = len(list(open(dictionary, "rb")))
 
-
 with open(dictionary, "rb") as dictionary:
     for word in tqdm(dictionary, total=words, unit="word"):
         try:
             # extractall => exception whenever pwd incorrect
             #            => if correct - print pwd
             # strip => avoid newlines
-
+            
             zipFile.extractall(pwd=word.strip())
         except:
             continue

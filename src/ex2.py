@@ -105,7 +105,6 @@ def blowfish(key, xBytes, yBytes):
 
     return countECB, countCBC
 
-
 countAESECB = 0
 countAESCBC = 0
 countBlowfishECB = 0
@@ -131,18 +130,13 @@ for j in range(messages):
     
     key = get_random_bytes(16)
 
-
     a, b = aes(key, xBytes, yBytes)
     countAESECB += a 
     countAESCBC += b
 
-
     a, b = blowfish(key, xBytes, yBytes)
     countBlowfishECB += a 
     countBlowfishCBC += b 
-
-
-
 
 print("AVERAGE DIFFERENCE IN BITS")
 print("--------------------------")

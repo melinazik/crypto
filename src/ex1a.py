@@ -13,7 +13,6 @@ def KSA(key):
     key = [ord(x) for x in key]
     
     S = [x for x in range(256)]
-
     j = 0
 
     for i in range(256):
@@ -27,7 +26,6 @@ def KSA(key):
 
 # Pseudo-random generation algorithm (PRGA)
 # S : permuation array
-
 #prga for encryption
 def PRGAEncrypt(S, plainText):
     i = 0

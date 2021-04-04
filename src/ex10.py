@@ -32,7 +32,6 @@ def shank(g, y, p):
         if x in table:
             return j * m + table[x]
 
-
 print("0:", shank(2,2404,3571))
 print("1:", shank(2,2912,3989))
 print("2:", shank(2,9077,12161))

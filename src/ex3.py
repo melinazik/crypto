@@ -31,7 +31,6 @@ def getKeyLength(text):
 
     return coincidences.index(max(coincidences))
 
-
 def getKey(text, keyLen, frequency):
     textLen = float(len(text))
     key = ''
@@ -52,7 +51,6 @@ def getKey(text, keyLen, frequency):
 
             for k in range(0, 26):
                 # set initial frequency of each letter to 0
-            
                 textFrequency[chr(k + ord('A'))] = 0
 
             # find the frequencies of each position of the key.

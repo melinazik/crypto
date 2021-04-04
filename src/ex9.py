@@ -5,7 +5,6 @@
     Melina Zikou (2021)
 '''
 
-
 # def fast(b, e, m):
 #     g = []
 #     for i in range(e):
@@ -31,6 +30,7 @@
 # m = modulo 
 #     
 # calculate b^e mod m
+
 def fast(b,e,m):
     x = b
     g = e

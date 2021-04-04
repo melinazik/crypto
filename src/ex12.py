@@ -55,7 +55,6 @@ def fast(b,e,m):
             g = g - 1
     return d
 
-
 def isPerfectSquare(n):
     t = math.sqrt(n)
     if t * t == n:
@@ -63,12 +62,9 @@ def isPerfectSquare(n):
     else:
         return -1
    
-
-
 # Finds d knowing (e,n)
 # applying the Wiener continued fraction attack
 def findD(e,N):
-    
     frac = rationalToContFrac(e, N)
     convergents = convergentsFromContFrac(frac)
     
@@ -87,8 +83,6 @@ def findD(e,N):
                 t = isPerfectSquare(D)
                 if t != -1 and (b + t) % 2 == 0:
                     return d
-
-
 
 # print char objects of a list as a string
 def printText(text):

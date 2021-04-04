@@ -30,8 +30,7 @@ def modularInverse(a, m):
 
 # b = base number
 # e = exponential
-# m = modulo 
-#     
+# m = modulo  
 # calculate b^e mod m
 def fast(b,e,m):
     x = b

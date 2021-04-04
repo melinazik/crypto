@@ -11,12 +11,10 @@ from Crypto.Random import get_random_bytes
 from Crypto import Random
 import random
 
-
 # print char objects of a list as a string
 def printText(mBytes):
     for b in range(len(mBytes)):
         print(bin(mBytes[b]), end="")
-
 
 def FSM(cipher, message, iv):
     c = []
@@ -30,7 +28,6 @@ def FSM(cipher, message, iv):
 
 message = get_random_bytes(16)
 key = get_random_bytes(16)
-
 
 cipher = AES.new(key)
 iv = get_random_bytes(1)

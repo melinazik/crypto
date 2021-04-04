@@ -25,7 +25,6 @@ def convertToBits(plainText, table):
         
     return bitStream
 
-
 # convert binary number to characters according to table values
 # parameters: binary -> binary number to convert
 #             length -> length of plainText
@@ -49,7 +48,6 @@ def binaryToString(binary, length, table):
     # reverse the charList / characters are encoded from end to start
     result = charList[::-1]
     return result
-
 
 # the function sumxor
 # accepts a binary list of the form [1,0,1,...]
@@ -81,7 +79,6 @@ def lfsr(seed, feedback, bits):
 
 # convert a list of bits to binary number
 def listToBits(l):
-    
     binary = 0b0
 
     for i in range(len(l)):
@@ -115,7 +112,6 @@ def xor(text, key):
 def printText(charList):
     for c in charList:
         print(c, end="")
-
 
 #set with table values for each ASCII character
 table = {'A' :0b00000, 'B' :0b00001, 'C' :0b00010, 'D' :0b00011, 'E' :0b00100, 'F' :0b00101, 'G' :0b00110, 'H' :0b00111,
