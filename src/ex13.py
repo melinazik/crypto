@@ -41,6 +41,34 @@ def fermat(n):
         k += 2
     return True
 
+# Miller Rabin Primality Test 
+def rabinMiller(n):
+     s = n-1
+     r = 0
+     # s is composite
+     while s & 1 == 0:
+         s = s // 2
+         r += 1
+
+     k = 0
+     while k < 128:
+        a = random.randrange(2, n - 1)
+        x = fast(a, s, n) 
+
+        # if x composite
+        if x != 1:
+            i = 0
+            
+            while x != (n - 1):
+                if i == r - 1:
+                    return False
+                else:
+                    i = i + 1
+                    x = fast(x, 2, n)
+        k += 2
+     return True
+        
+
 # decrease the number of potential primes to be tested
 def isPrime(n):
     # lowPrimes => all primes under 1000
@@ -65,7 +93,7 @@ def isPrime(n):
                     return True
                 if (n % p == 0):
                     return False
-            return fermat(n)
+            return rabinMiller(n)
     return False
 
 def generateLargePrime(k):
@@ -79,17 +107,4 @@ def generateLargePrime(k):
              return n
      return r
 
-
-# prime = False
-# while(prime == False):
-#     r = random.getrandbits(2048)
-#     if(fermat(r) == True):
-#         prime = True
-
-
-
-# print(r)
-
-print (generateLargePrime(2048))
-
-
+print (generateLargePrime(1024))
