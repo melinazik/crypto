@@ -1,14 +1,16 @@
 ''' 
-    Safe and Sophie Germain primes
-    Miller Rabin
+    Safe and Sophie Germain Primes
+    Miller Rabin method
     Exercise 13 (iii)
     
     Melina Zikou (2021)
 '''
+
 import random
 import math
 import sys
 import time
+from fractions import Fraction
 
 # b = base number
 # e = exponential
@@ -79,7 +81,7 @@ def isPrime(n):
             for p in lowPrimes:
                 if (n == p):
                     return True
-                if (n % p == 0):
+                if (n % p == 0 or n % p == (n - 1) // 2):
                     return False
             return rabinMiller(n)
         
@@ -95,6 +97,22 @@ def generateLargePrime(k):
          if isPrime(n) == True:
             return n
      return r
+
+
+# rabin miller prime
+
+start = time.time()
+
+found = False
+while(found == False):    
+    p = generateLargePrime(1000)
+    if(isPrime(2 * p + 1) == True):
+        found = True
+
+
+print(int(p))
+end = time.time()
+print("\nSAFE PRIME - 1500 bits:", end - start)
 
 
 
