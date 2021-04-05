@@ -1,6 +1,7 @@
 ''' 
-    Primality test
-    Exercise 13 
+    Safe and Sophie Germain primes
+    Miller Rabin
+    Exercise 13 (iii)
     
     Melina Zikou (2021)
 '''
@@ -27,19 +28,6 @@ def fast(b,e,m):
             d = (x * d) % m
             g = g - 1
     return d
-
-# Fermats Primality Test     
-# a ^ (n - 1) == 1 -> prime
-# a ^ (n - 1) != 1 -> composite
-def fermat(n):
-    k = 0
-    while k < 128:
-        a = random.randint(2, n - 2)
-
-        if fast(a, n - 1, n) != 1:
-            return False
-        k += 2
-    return True
 
 # Miller Rabin Primality Test 
 def rabinMiller(n):
@@ -70,7 +58,7 @@ def rabinMiller(n):
         
 
 # decrease the number of potential primes to be tested
-def isPrime(n, isFermat, isRabinMiller):
+def isPrime(n):
     # lowPrimes => all primes under 1000
     
     lowPrimes =   [3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97
@@ -93,34 +81,21 @@ def isPrime(n, isFermat, isRabinMiller):
                     return True
                 if (n % p == 0):
                     return False
-            if(fermat == True):
-                return isFermat(n)
-            else:
-                return isRabinMiller(n)
-
+            return rabinMiller(n)
+        
     return False
 
-def generateLargePrime(k, isFermat, isRabinMiller):
+def generateLargePrime(k):
      # k is the desired bit length
      r = 100 * (math.log(k,2) + 1) # max number of attempts
 
      while r > 0:
          n = random.randrange(pow(2, k - 1), pow(2,k))
          r -= 1
-         if isPrime(n, fermat, rabinMiller) == True:
+         if isPrime(n) == True:
             return n
      return r
 
-# fermat prime
-start = time.time()
-print(generateLargePrime(2048, True, False))
-end = time.time()
-print("\nFERMAT - 2048 bits:", end - start)
 
-print()
-# rabin miller prime
 
-start = time.time()
-print (generateLargePrime(1024, False, True))
-end = time.time()
-print("\nRABIN MILLER - 1024 bits:", end - start)
+
