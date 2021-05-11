@@ -6,6 +6,7 @@
 '''
 
 import math
+import base64
 
 # Converts a rational x/y fraction into
 # a list of partial quotients [a0, ..., an]
@@ -96,25 +97,32 @@ e = 50736902528669041
 f = open("..\\files\\textbookRSA.txt", "r")
 cipher= f.read()
 
+
+d = findD(e, N)
+privateKey = [N, d]
+# print(d)
+
+
 C = []
 M = []
 asciiM = []
 
+# convert from base64 to utf - 8
+cipher = base64.b64decode(cipher).decode('utf-8')
+
+# print(cipher)
+
+cipher = cipher.replace('\r\n', ',')
+cipher = cipher.replace('C=[', '')
+cipher = cipher.replace(']', '')
+cipher = cipher.split(',')
+
 for c in cipher:
-    C.append(ord(c))
-
-d = findD(e, N)
-privateKey = [N, d]
-
-print(d)
-
-for c in cipher:
-    C.append(ord(c))
+    C.append(c)
 
 for c in C:
-    M.append(fast(c,d,N))
+    M.append(fast(int(c),d,N))
 
-print(M[0])
 
 for m in M:
     asciiM.append(chr(m))
