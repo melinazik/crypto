@@ -131,8 +131,13 @@ def generateKey(keySize):
    print("d:", d)
    print()
 
+   # dp = d mod (p - 1)
    dp = d % (p - 1) 
-   dq = d % (q - 1) 
+
+   # dq = d mod (q - 1)
+   dq = d % (q - 1)
+
+   # qinv = modular inverse of q mod p
    qinv = modularInverse(q, p)
 
    print("dp:", dp)
