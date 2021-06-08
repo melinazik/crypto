@@ -29,8 +29,8 @@ def FSM(cipher, message, iv):
 message = get_random_bytes(16)
 key = get_random_bytes(16)
 
-cipher = AES.new(key)
-iv = get_random_bytes(1)
+# cipher = AES.new(key)
+# iv = get_random_bytes(1)
 
 c = FSM(cipher, message, iv)
 printText(c)

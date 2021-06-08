@@ -110,7 +110,7 @@ asciiM = []
 # convert from base64 to utf - 8
 cipher = base64.b64decode(cipher).decode('utf-8')
 
-# print(cipher)
+print(cipher)
 
 cipher = cipher.replace('\r\n', ',')
 cipher = cipher.replace('C=[', '')

@@ -18,9 +18,7 @@
 #             result = (result * x) % m
         
 #         x = (x * x) % m
-#         print(i, end= " ")
 
-#     print()
 #     return result
 
 
@@ -39,7 +37,7 @@ def fast(b,e,m):
     while g > 0:
         if g % 2 == 0:
             x = (x * x) % m
-            g = g/2
+            g = g / 2
         else:
             d = (x * d) % m
             g = g - 1
