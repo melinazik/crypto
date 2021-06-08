@@ -130,6 +130,16 @@ def generateKey(keySize):
    d = modularInverse(e, (p - 1) * (q - 1))
    print("d:", d)
    print()
+
+   dp = d % (p - 1) 
+   dq = d % (q - 1) 
+   qinv = modularInverse(q, p)
+
+   print("dp:", dp)
+   print("dq:", dq)
+   print("qinv:", qinv)
+   print()
+
    
    publicKey = (n, e)
    privateKey = (n, d)
