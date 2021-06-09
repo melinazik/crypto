@@ -149,7 +149,7 @@ def generateKey(keySize):
    privateKey = (n, d)
    print('Public key:', publicKey)
    print('Private key:', privateKey)
-   return (publicKey, privateKey)
+   return (p, q, d, publicKey, privateKey)
 
 
 def encrypt(publicKey, text):
@@ -162,17 +162,36 @@ def encrypt(publicKey, text):
         
     return x
 
-def decrypt(privateKey, text):
-    n,d = privateKey
-    x = []
+# def decrypt(privateKey, text):
+#     n,d = privateKey
+#     x = []
 
-    for i in text:
-        c = fast(i, d, n)
-        x.append(c)
-    return x
+#     for i in text:
+#         c = fast(i, d, n)
+#         x.append(c)
+#     return x
+
+def decrypt(p, q, d, c):
+    # dp = d mod (p - 1)
+    dp = d % (p - 1) 
+
+    # dq = d mod (q - 1)
+    dq = d % (q - 1)
+
+    # qinv = modular inverse of q mod p
+    qinv = modularInverse(q, p)
+
+    m1 = pow(c, dp, p)
+    m2 = pow(c, dq, q)
+
+    h = (qinv * (m1 - m2)) % p 
+    m = m2 + h * q
+    return m
 
 
-publicKey, privateKey = generateKey(10)
+p, q, d, publicKey, privateKey = generateKey(10)
+
+
 
 # print char objects of a list as a string
 def printText(text):
@@ -188,19 +207,9 @@ print()
 # print(pText, end="")
 encryptedText = encrypt(publicKey, pText)
 
-decryptedText = decrypt(privateKey, encryptedText)
+m = []
+for c in encryptedText:
+    m.append(decrypt(p, q, d, c))
 
-# C = [3203,909,3143,5255,5343,3203,909,9958,5278,5343,9958,5278,4674,909,9958,792,909,4132,3143,9958,3203,5343,792,3143,4443]
-
-
-# M = []
-# asciiM = []
-
-# for c in C:
-#     M.append(fast(c,d,N))
-
-# for m in M:
-#     asciiM.append(chr(m))
-
-# print("Private Key:", privateKey)
-# printText(asciiM)
+for i in m:
+    print(chr(i), end="")
