@@ -7,7 +7,7 @@
 '''
 
 # Legendre symbol
-# The Legendre symbol ( a | p) => a ^ ((p-1)/2) (mod p)
+# The Legendre symbol (a | p) => a ^ ((p-1)/2) (mod p)
 # (a | p) =  1     if a is a square (mod p)
 # (a | p) = -1     if a is not a square (mod p)
 # (a | p) =  0     if a ≡ 0
@@ -24,8 +24,8 @@ def tonelliShanks (a, p):
     if (legendreSymbol(a,p) == 1):
         
 
-         # Partition p-1 to q * 2^e for an odd q 
-         # (reduce all the powers of 2 from p - 1)
+        # Partition p-1 to q * 2^e for an odd q 
+        # (reduce all the powers of 2 from p - 1)
         q = p - 1
         e = 0
         while q % 2 == 0:
@@ -45,9 +45,7 @@ def tonelliShanks (a, p):
         r = pow(a, (q + 1) // 2, p)
         t = pow(a, q, p)
         m = e
-
         v = 0
-
 
         # loop until t = 1
         while (t - 1) % p != 0:
@@ -65,7 +63,6 @@ def tonelliShanks (a, p):
             # set t = t * b^2 (mod p)
             # set c = b^2 (mod p)
             # set m = i.
-
             b = pow(c, pow(2, m - i - 1), p)
             r = (r * b) % p
             c = (b * b) % p

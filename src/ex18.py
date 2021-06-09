@@ -206,6 +206,7 @@ for i in plainText:
 print()
 # print(pText, end="")
 encryptedText = encrypt(publicKey, pText)
+print(encryptedText)
 
 m = []
 for c in encryptedText:

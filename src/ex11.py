@@ -58,7 +58,6 @@ e = 19
 
 phi = phi(N)
 d = modularInverse(e,phi)
-
 privateKey = [N, d]
 
 M = []

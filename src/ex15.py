@@ -89,6 +89,7 @@ def function(x):
 
 numbers = []
 count = 0
+
 for i in range (1000):
     n = function(random.randint(1, pow(10, 5)))
     n = abs(n)
