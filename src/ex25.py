@@ -9,30 +9,31 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math 
 
-
-# function to count divisors of an integer
+# count divisors of an integer
 def t(n) :
     count = 0
     for i in range(1, (int)(math.sqrt(n)) + 1) :
         if (n % i == 0) :
              
-            # If divisors are equal,
+            # if divisors are equal,
             # count only one
             if (n / i == i) :
                 count = count + 1
-            else : # Otherwise count both
+            else : # otherwise count both
                 count = count + 2
             
     return count
     
-
 # Set Euler-Mascheroni constant g = 0.577
 g = 0.577
 
-# Creating vectors X and Y
+# define linear space for the plot
 n = np.linspace(1, 10000000, 100000)
+
+# sequence a_n
 a = np.log(n) + 2*g - 1
 
+# sequence b_n
 def b(n):
     sum = 0
     sumArray = []
@@ -43,10 +44,12 @@ def b(n):
   
 fig = plt.figure(figsize = (10, 5))
 
-# Create the plot
+# Create 1st plot
 plt.plot(n, a)
-# Show the plot
+# Show 1st plot
 plt.show()
 
+# Create 2nd plot
 plt.plot(n, b(100000))
+# Show 2nd plot
 plt.show()
