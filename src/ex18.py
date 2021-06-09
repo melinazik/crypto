@@ -145,29 +145,53 @@ def generateKey(keySize):
    print("qinv:", qinv)
    print()
 
-   
    publicKey = (n, e)
    privateKey = (n, d)
    print('Public key:', publicKey)
    print('Private key:', privateKey)
    return (publicKey, privateKey)
 
-generateKey(100)
 
-# # print char objects of a list as a string
-# def printText(text):
-#     for i in range(len(text)):
-#         print(text[i], end="")
+def encrypt(publicKey, text):
+    n,e = publicKey
+    x = []
+
+    for i in text:
+        c = fast(i, e, n)
+        x.append(c)
+        
+    return x
+
+def decrypt(privateKey, text):
+    n,d = privateKey
+    x = []
+
+    for i in text:
+        c = fast(i, d, n)
+        x.append(c)
+    return x
+
+
+publicKey, privateKey = generateKey(10)
+
+# print char objects of a list as a string
+def printText(text):
+    for i in range(len(text)):
+        print(text[i], end="")
+
+plainText = "This is an uncrackable message!"
+pText = []
+for i in plainText:
+    pText.append(ord(i))
+
+print()
+# print(pText, end="")
+encryptedText = encrypt(publicKey, pText)
+
+decryptedText = decrypt(privateKey, encryptedText)
 
 # C = [3203,909,3143,5255,5343,3203,909,9958,5278,5343,9958,5278,4674,909,9958,792,909,4132,3143,9958,3203,5343,792,3143,4443]
 
-# N = 11413
-# e = 19 
-
-# phi = phi(N)
-# d = modularInverse(e,phi)
-
-# privateKey = [N, d]
 
 # M = []
 # asciiM = []
