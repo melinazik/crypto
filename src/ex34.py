@@ -6,7 +6,6 @@
 '''
 import math
 
-
 def calculatePrimes(lower, upper):
     primes = []
     for num in range(lower, upper + 1):
@@ -18,7 +17,6 @@ def calculatePrimes(lower, upper):
             else:
                 primes.append(num)
     return primes
-
 
 def findPrimes(num, primes):
     flag = False
