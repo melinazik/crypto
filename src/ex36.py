@@ -5,6 +5,7 @@
     
     Melina Zikou (2021)
 '''
+
 import math
 import random
 
@@ -22,20 +23,21 @@ def divisors(n):
 def probability(L, n):
 
     for i in L:
+        # print(len(bin(i)))
         if (len(bin(i)) - 2 >= math.floor(n/2) and (len(bin(i)) - 2 <= math.floor(n/2) + 1 or len(bin(i)) - 2 <= math.floor(n/2) - 1)):
+            
             return 1
-
-        return -1
 
 count = 0
 K = 1000
+
 for i in range(0,K):
     n = 10
     m = random.getrandbits(n)
     L = divisors(m)
+    # print(len(bin(m)) - 2)
 
     if(probability(L, n) == 1):
         count = count + 1
-
 
 print(count/ K)
