@@ -20,6 +20,7 @@ def divisors(n):
 
     return factors
 
+# calculate probability
 def probability(L, n):
 
     for i in L:
@@ -32,7 +33,7 @@ count = 0
 K = 1000
 
 for i in range(0,K):
-    n = 10
+    n = 64
     m = random.getrandbits(n)
     L = divisors(m)
     # print(len(bin(m)) - 2)

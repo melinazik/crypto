@@ -105,7 +105,7 @@ start = time.time()
 
 found = False
 while(found == False):    
-    p = generateLargePrime(900)
+    p = generateLargePrime(400)
     if(isPrime(2 * p + 1) == True):
         found = True
 
