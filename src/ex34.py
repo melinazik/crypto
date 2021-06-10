@@ -45,8 +45,7 @@ def findPrimes(num, primes):
         if (flag):
             break
      
-    # Print the three prime numbers
-    # if the solution exists
+    #return 1 if the solution exists
     if (flag):
         return 1
     else :
