@@ -1,6 +1,6 @@
 # crypto
 
-###University Project on Fundamentals of Cryptography. 
+### University Project on Fundamentals of Cryptography. 
 
 The code was developed in Python, and the name of the programming files corresponds to the exercises with the same number (e.g. ex1.py = Exercise 1).
 
